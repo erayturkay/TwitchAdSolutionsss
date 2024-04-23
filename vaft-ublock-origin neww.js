@@ -8,9 +8,9 @@ twitch-videoad.js text/javascript
         scope.OPT_MODE_STRIP_AD_SEGMENTS = true;
         scope.OPT_MODE_NOTIFY_ADS_WATCHED = true;
         scope.OPT_MODE_NOTIFY_ADS_WATCHED_MIN_REQUESTS = false;
-        scope.OPT_BACKUP_PLAYER_TYPE = 'proxy'; //Source
+        scope.OPT_BACKUP_PLAYER_TYPE = 'proxy'; //360p
         scope.OPT_BACKUP_PLATFORM = 'ios';
-        scope.OPT_REGULAR_PLAYER_TYPE = 'site';
+        scope.OPT_REGULAR_PLAYER_TYPE = 'site'; //Source
         scope.OPT_ACCESS_TOKEN_PLAYER_TYPE = null;
         scope.OPT_SHOW_AD_BANNER = true;
         scope.AD_SIGNIFIER = 'stitched-ad';
