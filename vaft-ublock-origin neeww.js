@@ -1,8 +1,7 @@
 twitch-videoad.js text/javascript
 (function() {
     if ( /(^|\.)twitch\.tv$/.test(document.location.hostname) === false ) { return; }
-    function declareOptions(scope) {
-
+        function declareOptions(scope) {
         scope.AdSignifier = 'stitched';
         scope.ClientID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
         scope.ClientVersion = 'null';
@@ -19,21 +18,6 @@ twitch-videoad.js text/javascript
         scope.StreamInfosByUrl = [];
         scope.MainUrlByUrl = [];
         scope.EncodingCacheTimeout = 60000;
-        // These are only really for Worker scope...
-        scope.StreamInfos = [];
-        scope.StreamInfosByUrl = [];
-        scope.CurrentChannelNameFromM3U8 = null;
-        // Need this in both scopes. Window scope needs to update this to worker scope.
-        scope.gql_device_id = null;
-        scope.gql_device_id_rolling = '';
-        // Rolling device id crap... TODO: improve this
-        var charTable = []; for (var i = 97; i <= 122; i++) { charTable.push(String.fromCharCode(i)); } for (var i = 65; i <= 90; i++) { charTable.push(String.fromCharCode(i)); } for (var i = 48; i <= 57; i++) { charTable.push(String.fromCharCode(i)); }
-        var bs = 'eVI6jx47kJvCFfFowK86eVI6jx47kJvC';
-        var di = (new Date()).getUTCFullYear() + (new Date()).getUTCMonth() + ((new Date()).getUTCDate() / 7) | 0;
-        for (var i = 0; i < bs.length; i++) {
-            scope.gql_device_id_rolling += charTable[(bs.charCodeAt(i) ^ di) % charTable.length];
-        }
-        scope.gql_device_id_rolling = '1';//temporary
         scope.ClientIntegrityHeader = null;
         scope.AuthorizationHeader = null;
     }
