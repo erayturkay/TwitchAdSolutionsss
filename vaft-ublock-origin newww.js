@@ -1,65 +1,35 @@
 twitch-videoad.js text/javascript
 (function() {
     if ( /(^|\.)twitch\.tv$/.test(document.location.hostname) === false ) { return; }
-    //This stops Twitch from pausing the player when in another tab and an ad shows.
-    try {
-        Object.defineProperty(document, 'visibilityState', {
-            get() {
-                return 'visible';
-            }
-        });
-        Object.defineProperty(document, 'hidden', {
-            get() {
-                return false;
-            }
-        });
-        const block = e => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-        };
-        const process = e => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            //This corrects the background tab buffer bug when switching to the background tab for the first time after an extended period.
-            doTwitchPlayerTask(false, false, true, false, false);
-        };
-        document.addEventListener('visibilitychange', block, true);
-        document.addEventListener('webkitvisibilitychange', block, true);
-        document.addEventListener('mozvisibilitychange', block, true);
-        document.addEventListener('hasFocus', block, true);
-        if (/Firefox/.test(navigator.userAgent)) {
-            Object.defineProperty(document, 'mozHidden', {
-                get() {
-                    return false;
-                }
-            });
-        } else {
-            Object.defineProperty(document, 'webkitHidden', {
-                get() {
-                    return false;
-                }
-            });
-        }
-    } catch (err) {}
-        function declareOptions(scope) {
-        scope.AdSignifier = 'stitched';
-        scope.ClientID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
-        scope.ClientVersion = 'null';
-        scope.ClientSession = 'null';
-        scope.PlayerType2 = 'embed'; //Source
-        scope.PlayerType3 = 'site'; //Source
-        scope.PlayerType4 = 'autoplay'; //360p
-        scope.CurrentChannelName = null;
-        scope.UsherParams = null;
-        scope.WasShowingAd = false;
-        scope.GQLDeviceID = null;
-        scope.IsSquadStream = false;
+    function declareOptions(scope) {
+        // Options / globals
+        scope.OPT_ROLLING_DEVICE_ID = false;
+        scope.OPT_MODE_STRIP_AD_SEGMENTS = true;
+        scope.OPT_MODE_NOTIFY_ADS_WATCHED = true;
+        scope.OPT_MODE_NOTIFY_ADS_WATCHED_MIN_REQUESTS = false;
+        scope.OPT_BACKUP_PLAYER_TYPE = 'source';
+        scope.OPT_BACKUP_PLATFORM = 'ios';
+        scope.OPT_REGULAR_PLAYER_TYPE = 'site';
+        scope.OPT_ACCESS_TOKEN_PLAYER_TYPE = null;
+        scope.OPT_SHOW_AD_BANNER = true;
+        scope.AD_SIGNIFIER = 'stitched-ad';
+        scope.LIVE_SIGNIFIER = ',live';
+        scope.CLIENT_ID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
+        // These are only really for Worker scope...
         scope.StreamInfos = [];
         scope.StreamInfosByUrl = [];
-        scope.MainUrlByUrl = [];
-        scope.EncodingCacheTimeout = 60000;
+        scope.CurrentChannelNameFromM3U8 = null;
+        // Need this in both scopes. Window scope needs to update this to worker scope.
+        scope.gql_device_id = null;
+        scope.gql_device_id_rolling = '';
+        // Rolling device id crap... TODO: improve this
+        var charTable = []; for (var i = 97; i <= 122; i++) { charTable.push(String.fromCharCode(i)); } for (var i = 65; i <= 90; i++) { charTable.push(String.fromCharCode(i)); } for (var i = 48; i <= 57; i++) { charTable.push(String.fromCharCode(i)); }
+        var bs = 'eVI6jx47kJvCFfFowK86eVI6jx47kJvC';
+        var di = (new Date()).getUTCFullYear() + (new Date()).getUTCMonth() + ((new Date()).getUTCDate() / 7) | 0;
+        for (var i = 0; i < bs.length; i++) {
+            scope.gql_device_id_rolling += charTable[(bs.charCodeAt(i) ^ di) % charTable.length];
+        }
+        scope.gql_device_id_rolling = '1';//temporary
         scope.ClientIntegrityHeader = null;
         scope.AuthorizationHeader = null;
     }
@@ -688,3 +658,4 @@ twitch-videoad.js text/javascript
         });
     }
 })();
+M 2.7 ANTOFAGASTA, CHILE
