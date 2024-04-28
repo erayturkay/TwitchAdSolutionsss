@@ -3,18 +3,23 @@ twitch-videoad.js text/javascript
     if ( /(^|\.)twitch\.tv$/.test(document.location.hostname) === false ) { return; }
     function declareOptions(scope) {
         // Options / globals
-        scope.OPT_ROLLING_DEVICE_ID = false;
-        scope.OPT_MODE_STRIP_AD_SEGMENTS = true;
-        scope.OPT_MODE_NOTIFY_ADS_WATCHED = true;
-        scope.OPT_MODE_NOTIFY_ADS_WATCHED_MIN_REQUESTS = false;
-        scope.OPT_BACKUP_PLAYER_TYPE = 'embed'; //Autoplay
-        scope.OPT_BACKUP_PLATFORM = 'ios';
-        scope.OPT_REGULAR_PLAYER_TYPE = 'site';
-        scope.OPT_ACCESS_TOKEN_PLAYER_TYPE = null;
-        scope.OPT_SHOW_AD_BANNER = true;
-        scope.AD_SIGNIFIER = 'stitched-ad';
-        scope.LIVE_SIGNIFIER = ',live';
-        scope.CLIENT_ID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
+function declareOptions(scope) {
+        scope.AdSignifier = 'stitched';
+        scope.ClientID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
+        scope.ClientVersion = 'null';
+        scope.ClientSession = 'null';
+        scope.PlayerType2 = 'embed'; //Source
+        scope.PlayerType3 = 'site'; //Source
+        scope.PlayerType4 = 'autoplay'; //360p
+        scope.CurrentChannelName = null;
+        scope.UsherParams = null;
+        scope.WasShowingAd = false;
+        scope.GQLDeviceID = null;
+        scope.IsSquadStream = false;
+        scope.StreamInfos = [];
+        scope.StreamInfosByUrl = [];
+        scope.MainUrlByUrl = [];
+        scope.EncodingCacheTimeout = 60000;
         // These are only really for Worker scope...
         scope.StreamInfos = [];
         scope.StreamInfosByUrl = [];
